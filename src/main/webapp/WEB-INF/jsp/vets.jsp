@@ -1,3 +1,10 @@
+<%@ page import="org.springframework.samples.petclinic.Vet" %>
+<%@ page import="org.springframework.samples.petclinic.Vets" %>
+<%@ page import="org.springframework.samples.petclinic.Specialty" %>
+
+<%@ page import="java.util.List" %>
+<%@ page import="java.util.Iterator" %>
+
 <%@ include file="/WEB-INF/jsp/includes.jsp" %>
 <%@ include file="/WEB-INF/jsp/header.jsp" %>
 
@@ -8,17 +15,30 @@
     <th>Name</th>
     <th>Specialties</th>
   </thead>
-  <c:forEach var="vet" items="${vets.vetList}">
+  
+<%
+    Vets vets = (Vets)request.getAttribute("vets");
+    for(Vet vet : vets.getVetList()){
+%>
     <tr>
-      <td>${vet.firstName} ${vet.lastName}</td>
-      <td>
-	    <c:forEach var="specialty" items="${vet.specialties}">
-          ${specialty.name}
-        </c:forEach>
-        <c:if test="${vet.nrOfSpecialties == 0}">none</c:if>
-      </td>
-    </tr>
-  </c:forEach>
+    	<td>
+    		<%=vet.getLastName()%>
+    	<td>
+       	<%
+       	List<Specialty> specs = vet.getSpecialties();
+       	Iterator<Specialty> it = specs.iterator();
+       	while(it.hasNext()){
+       	%>
+		<td>
+			<%=it.next().getName()%>
+		</td>
+       	<%
+       	}
+		%>
+     </tr>
+   <%
+   	}
+   %>
 </table>
 <table class="table-buttons">
   <tr>

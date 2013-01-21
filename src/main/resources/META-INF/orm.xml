@@ -76,6 +76,7 @@
 
 	<entity class="Pet">
 		<table name="pets"/>
+		
 		<attributes>
 			<basic name="birthDate">
 				<column name="BIRTH_DATE"/>
@@ -86,6 +87,7 @@
 					<cascade-all/>
 				</cascade>
 			</many-to-one>
+			
 			<many-to-one name="type" fetch="EAGER">
 				<cascade>
 					<cascade-all/>
